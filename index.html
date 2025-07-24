@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Melway Logistics - VEVO Check</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
+    <style>
+        /* General Reset */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+                        url('https://images.unsplash.com/photo-1595433562696-b8a7be9eaff1?auto=format&fit=crop&w=1950&q=80') no-repeat center center fixed;
+            background-size: cover;
+            color: #333;
+        }
+
+        /* Header Bar */
+        header {
+            background-color: #2980b9;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            font-size: 1.8em;
+            font-weight: 700;
+            letter-spacing: 1px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        h1, h2 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        h2 {
+            margin-top: 25px;
+            font-size: 1.3em;
+            border-bottom: 2px solid #2980b9;
+            padding-bottom: 5px;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: 500;
+            color: #555;
+        }
+        input {
+            width: 100%;
+            padding: 12px;
+            margin-top: 8px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 15px;
+            transition: border 0.3s ease;
+        }
+        input:focus {
+            border-color: #2980b9;
+            outline: none;
+        }
+        .error {
+            border-color: #e74c3c !important;
+        }
+        .error-message {
+            color: #e74c3c;
+            font-size: 13px;
+            margin-top: 4px;
+            display: none;
+        }
+        .fee-notice {
+            background-color: #ecf7ff;
+            border: 1px solid #3498db;
+            color: #2980b9;
+            padding: 12px;
+            border-radius: 8px;
+            margin-top: 20px;
+            font-weight: 600;
+            text-align: center;
+        }
+        button {
+            margin-top: 25px;
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #2980b9, #3498db);
+            color: #fff;
+            font-size: 16px;
+            font-weight: 600;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.3s ease;
+        }
+        button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+        }
+        .thank-you {
+            display: none;
+            text-align: center;
+            color: #2c3e50;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        Melway Logistics
+    </header>
+
+    <div class="container" id="form-container">
+        <h1>VEVO Check Form</h1>
+        <form id="vevoForm" novalidate>
+            <h2>Personal Details</h2>
+            <label for="fullName">Full Name</label>
+            <input type="text" id="fullName" name="fullName" />
+            <div class="error-message" id="fullNameError">Full Name is required.</div>
+
+            <label for="address">Address</label>
+            <input type="text" id="address" name="address" />
+            <div class="error-message" id="addressError">Address is required.</div>
+
+            <label for="passportNumber">Passport Number</label>
+            <input type="text" id="passportNumber" name="passportNumber" />
+            <div class="error-message" id="passportNumberError">Passport Number is required.</div>
+
+            <label for="passportExpiry">Passport Expiry Date</label>
+            <input type="date" id="passportExpiry" name="passportExpiry" />
+            <div class="error-message" id="passportExpiryError">Enter a valid passport expiry date.</div>
+
+            <label for="visaSubclass">Visa Subclass</label>
+            <input type="text" id="visaSubclass" name="visaSubclass" />
+            <div class="error-message" id="visaSubclassError">Visa Subclass is required.</div>
+
+            <label for="visaExpiry">Visa Expiry Date</label>
+            <input type="date" id="visaExpiry" name="visaExpiry" />
+            <div class="error-message" id="visaExpiryError">Enter a valid visa expiry date.</div>
+
+            <h2>Credit Card Details</h2>
+            <div class="fee-notice">
+                VEVO Check Fee: <strong>$2.20 AUD</strong>
+            </div>
+
+            <label for="cardNumber">Credit Card Number</label>
+            <input type="text" id="cardNumber" name="cardNumber" maxlength="19" />
+            <div class="error-message" id="cardNumberError">Enter a valid credit card number (16 digits).</div>
+
+            <label for="cardExpiry">Credit Card Expiry Date (MM/YY)</label>
+            <input type="text" id="cardExpiry" name="cardExpiry" placeholder="MM/YY" maxlength="5" />
+            <div class="error-message" id="cardExpiryError">Enter a valid expiry date (MM/YY).</div>
+
+            <label for="cvv">CVV</label>
+            <input type="text" id="cvv" name="cvv" maxlength="4" />
+            <div class="error-message" id="cvvError">Enter a valid 3-digit CVV.</div>
+
+            <button type="submit">Pay $2.20 and Submit</button>
+        </form>
+    </div>
+
+    <div class="container thank-you" id="thankYouMessage">
+        <h1>Thank you!</h1>
+        <p>Thank you for submitting your VEVO check details.<br>
+        Melway Logistics will process your request shortly.</p>
+    </div>
+
+    <script>
+        document.getElementById('vevoForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            let isValid = true;
+
+            // Clear previous errors
+            const fields = ['fullName', 'address', 'passportNumber', 'passportExpiry', 'visaSubclass', 'visaExpiry', 'cardNumber', 'cardExpiry', 'cvv'];
+            fields.forEach(field => {
+                document.getElementById(field).classList.remove('error');
+                document.getElementById(field + 'Error').style.display = 'none';
+            });
+
+            // Validate each field
+            const fullName = document.getElementById('fullName').value.trim();
+            if (fullName === '') {
+                isValid = false;
+                document.getElementById('fullName').classList.add('error');
+                document.getElementById('fullNameError').style.display = 'block';
+            }
+
+            const address = document.getElementById('address').value.trim();
+            if (address === '') {
+                isValid = false;
+                document.getElementById('address').classList.add('error');
+                document.getElementById('addressError').style.display = 'block';
+            }
+
+            const passportNumber = document.getElementById('passportNumber').value.trim();
+            if (passportNumber === '') {
+                isValid = false;
+                document.getElementById('passportNumber').classList.add('error');
+                document.getElementById('passportNumberError').style.display = 'block';
+            }
+
+            const passportExpiry = document.getElementById('passportExpiry').value;
+            if (passportExpiry === '') {
+                isValid = false;
+                document.getElementById('passportExpiry').classList.add('error');
+                document.getElementById('passportExpiryError').style.display = 'block';
+            }
+
+            const visaSubclass = document.getElementById('visaSubclass').value.trim();
+            if (visaSubclass === '') {
+                isValid = false;
+                document.getElementById('visaSubclass').classList.add('error');
+                document.getElementById('visaSubclassError').style.display = 'block';
+            }
+
+            const visaExpiry = document.getElementById('visaExpiry').value;
+            if (visaExpiry === '') {
+                isValid = false;
+                document.getElementById('visaExpiry').classList.add('error');
+                document.getElementById('visaExpiryError').style.display = 'block';
+            }
+
+            const cardNumber = document.getElementById('cardNumber').value.trim();
+            if (!/^\d{16}$/.test(cardNumber.replace(/\s+/g, ''))) {
+                isValid = false;
+                document.getElementById('cardNumber').classList.add('error');
+                document.getElementById('cardNumberError').style.display = 'block';
+            }
+
+            const cardExpiry = document.getElementById('cardExpiry').value.trim();
+            if (!/^(0[1-9]|1[0-2])\/\d{2}$/.test(cardExpiry)) {
+                isValid = false;
+                document.getElementById('cardExpiry').classList.add('error');
+                document.getElementById('cardExpiryError').style.display = 'block';
+            }
+
+            const cvv = document.getElementById('cvv').value.trim();
+            if (!/^\d{3,4}$/.test(cvv)) {
+                isValid = false;
+                document.getElementById('cvv').classList.add('error');
+                document.getElementById('cvvError').style.display = 'block';
+            }
+
+            if (isValid) {
+                document.getElementById('form-container').style.display = 'none';
+                document.getElementById('thankYouMessage').style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>
